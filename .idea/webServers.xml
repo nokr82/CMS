@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e8644026-aa5b-42f4-a854-ed194120c9c2" name="CMS" url="http://vmp-cms.kro.kr/">
+        <fileTransfer host="vmp-cms.kro.kr" port="20000" rootFolder="/var/www/html/vmp_cms" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="20000" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
