@@ -13,18 +13,18 @@ set_time_limit(0);
 ini_set('memory_limit', '-1');
 ini_set("display_errors", 1);
 if ($_POST['email'] == '') {
-    echo "실패";
-    return;
+    echo "실패1";
+    exit();
 }
 
 if ($_POST['certi2'] == '') {
-    echo "실패";
-    return;
+    echo "실패2";
+    exit();
 }
 
 if ($_POST['ji_name'] == '') {
-    echo "실패";
-    return;
+    echo "실패3";
+    exit();
 }
 
 
@@ -61,8 +61,8 @@ $pdo->query($sql);
 
 
 $src = 'CMS_Pro.gg';
-
-mailer("홍동우", "nokr82@naver.com", "nokr82@naver.com", $_POST['ji_name'] . '님 ' . "CMS 쇼필몰 구매이메일 입니다. 확장자 gg를 zip로 바꾼다음에 풀어주세요!!.", "CMS 소스입니다.", 1, $path, $src);
+//qsca02
+mailer("홍동우", "nokr82@naver.com", "{$_POST['email']}", $_POST['ji_name'] . '님 ' . "CMS 쇼필몰 구매이메일 입니다. 확장자 gg를 zip로 바꾼다음에 풀어주세요!!.", "CMS 소스입니다.", 1, $path, $src);
 
 echo "성공";
 

@@ -37,7 +37,7 @@ $resultCd = $_REQUEST["resultCd"];
 ?>
 <?php
 $page_title = 'CMS SHOP-CMS Pro-1';
-include_once $_SERVER['DOCUMENT_ROOT'] ."/include/head.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/include/head.php";
 ?>
 <!--[if lt IE 9]>
 <script src="../signature-pad-master/assets/flashcanvas.js"></script><![endif]-->
@@ -47,7 +47,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] ."/include/head.php";
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="../js/jspdf.min.js"></script>
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] ."/include/header.php";
+include_once $_SERVER['DOCUMENT_ROOT'] . "/include/header.php";
 ?>
 <form id="t_data" onsubmit="return false">
     <div id="cont" class="cont_form">
@@ -189,9 +189,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] ."/include/header.php";
 </form>
 
 
-
 <!--전자계약서완료본 스샷찍음됨-->
-<div id="cont_main" style="display: none" >
+<div id="cont_main" style="display: none">
     <div class="head">
         CMS-pro 구매 계약서
         <i class="btn_close"><span class="blind">비주얼 선택 닫기</span></i>
@@ -218,7 +217,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] ."/include/header.php";
         });
 
 
-
         $('#allagree').change(function () {
             if ($(this).prop('checked')) {
                 $('checkbox').prop('checked', true);
@@ -235,98 +233,80 @@ include_once $_SERVER['DOCUMENT_ROOT'] ."/include/header.php";
             return;
         }
 
-        html2canvas(document.querySelector("#cont_main")).then(canvas => {
-            if (!$('input[type=checkbox]').eq(1).is(':checked')) {
-                alert("약관에 동의해주세요.");
-                return;
-            }
-            if (!$('input[type=checkbox]').eq(2).is(':checked')) {
-                alert("약관에 동의해주세요.");
-                return;
-            }
-            if (!$('input[type=checkbox]').eq(3).is(':checked')) {
-                alert("약관에 동의해주세요.");
-                return;
-            }
+
+        if (!$('input[type=checkbox]').eq(1).is(':checked')) {
+            alert("약관에 동의해주세요.");
+            return;
+        }
+        if (!$('input[type=checkbox]').eq(2).is(':checked')) {
+            alert("약관에 동의해주세요.");
+            return;
+        }
+        if (!$('input[type=checkbox]').eq(3).is(':checked')) {
+            alert("약관에 동의해주세요.");
+            return;
+        }
 
 
-            if (!$('#certi2').attr('readonly')) {
-                alert("제휴사 아이디를 인증해주세요.");
-                return;
-            }
-            if (!$('#email').attr('readonly')) {
-                alert("이메일을 확인해주세요.");
-                return;
-            }
+        if (!$('#certi2').attr('readonly')) {
+            alert("제휴사 아이디를 인증해주세요.");
+            return;
+        }
+        if (!$('#email').attr('readonly')) {
+            alert("이메일을 확인해주세요.");
+            return;
+        }
 
 
+        //만약에 제휴사 아이디와 이메일이 바껴있을경우 (?) 마지막 재 검증
+        var email = $("#email").val();
+        var check_email = $("#check_email").val();
+        var certi2 = $("#certi2").val();
+        var check_id = $("#check_id").val();
 
-            //만약에 제휴사 아이디와 이메일이 바껴있을경우 (?) 마지막 재 검증
-            var email = $("#email").val();
-            var check_email = $("#check_email").val();
-            var certi2 = $("#certi2").val();
-            var check_id = $("#check_id").val();
+        if (certi2 != check_id) {
+            alert("인증받은 아이디가 일치하지않습니다.");
+            $("#certi2").focus();
 
-            if(certi2 != check_id){
-                alert("인증받은 아이디가 일치하지않습니다.");
-                $("#certi2").focus();
+            return;
+        }
 
-                return;
-            }
+        var html = $('#cont_main').html();
+        var sign_img = $('#cont_img').attr('src');
 
+        var data = new FormData;
+        var tdata = getFormData($("#t_data"));
+        for (var key in tdata) {
+            data.append(key, tdata[key]);
+        }
 
-            var imgData = canvas.toDataURL('image/png');
-            var imgWidth = 320;
-            var pageHeight = 295;
-            var imgHeight = canvas.height * imgWidth / canvas.width;
-            var heightLeft = imgHeight;
+        var udata = getFormData($("#form1"));
+        for (var key in udata) {
+            data.append(key, udata[key]);
+        }
+        data.append("html", html);
+        data.append("sign_img", sign_img);
 
-            var doc = new jsPDF('p', 'mm');
-            var position = 0;
-
-            doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-            heightLeft -= pageHeight;
-
-            while (heightLeft >= 0) {
-                position = heightLeft - imgHeight;
-                doc.addPage();
-                doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
-            doc.save('CMS계약서');
-
-            var html = $('#cont_main').html();
-            var sign_img = $('#cont_img').attr('src');
-
-            var data = new FormData;
-            var tdata = getFormData($("#t_data"));
-            for (var key in tdata) {
-                data.append(key, tdata[key]);
-            }
-            data.append("html", html);
-            data.append("sign_img", sign_img);
-
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "./ajax/pay.php");
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "./ajax/pay.php");
 
 
-            xhr.onload = function (e) {
+        xhr.onload = function (e) {
 
-                if (this.status == 200) {
-                    // console.log(e.currentTarget.responseText);
-                    if (e.currentTarget.responseText.trim() == '성공') {
-
-                    } else {
-                        alert('잘못된 접근입니다.')
-                    }
+            if (this.status == 200) {
+                console.log(e.currentTarget.responseText);
+                if (e.currentTarget.responseText.trim() == '성공') {
+                   location.href = '/cms_pay_complete.php';
+                } else {
+                    alert('잘못된 접근입니다.')
                 }
-            };
-            xhr.upload.onprogress = function (e) {
+            }
+        };
+        xhr.upload.onprogress = function (e) {
 
-            };
+        };
 
-            xhr.send(data);
-        });
+        xhr.send(data);
     }
 
 
@@ -348,7 +328,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] ."/include/header.php";
 
 
     //아이디 인증 중 취소 할 경우
-    $(".btn_no").on("click",function(){
+    $(".btn_no").on("click", function () {
         $("#certi2").val("");
     })
 
@@ -381,7 +361,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] ."/include/header.php";
                     } else {
                         maskingStr = originStr.replace(/(?<=.{2})./gi, "*");
                     }
-
+                    $('#certi2').attr('readonly', true);
                     $('#txt1').html(data.mb_id);
                     $('#txt2').html(maskingStr);
                     $('#check_id').val(data.mb_id);
@@ -418,19 +398,20 @@ include_once $_SERVER['DOCUMENT_ROOT'] ."/include/header.php";
             //$("#email").prop('readonly', true);
             //$('.pop_mask, .sign3').show();
             $.ajax({
-                type : "post",
-                url : "/mail_check2.php",
-                data : {"email" : emailVal},
+                type: "post",
+                url: "/mail_check2.php",
+                data: {"email": emailVal},
                 dataType: 'json',
                 error: function (xhr, status, error) {
                     alert(error + xhr + status);
                 },
                 success: function (data) {
-                    if(data.msg == "T"){
+                    if (data.msg == "T") {
                         $('.btn3').closest('li').find('label').addClass('on');
                         $('.pop_mask, .sign3').show();
                         $("#check_email").html(emailVal);
-                    }else{
+                        $('#email').attr('readonly', true);
+                    } else {
                         alert('잘못된 이메일입니다.');
                     }
                     //console.log(data);
