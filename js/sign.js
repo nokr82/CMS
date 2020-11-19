@@ -17,8 +17,8 @@ jQuery(document).ready(function(e) {
         jQuery.fn.sign = function(options) {
             var params = jQuery.fn.extend({
                 reset: options.resetButton ? options.resetButton : null,
-                width: options.width ? options.width : 500,
-                height: options.height ? options.height : 300,
+                width: options.width ? options.width : 672,
+                height: options.height ? options.height : 127,
                 lineWidth: options.lineWidth ? options.lineWidth : 10,
             }, options);
 
@@ -29,7 +29,7 @@ jQuery(document).ready(function(e) {
             var context = canvas.get(0).getContext('2d');
             context.lineJoin = context.lineCap = 'round';
 
-            var fixFingerPosition = 15;            
+            var fixFingerPosition = 15;
 
             canvas.attr("width",params.width);
             canvas.attr("height", params.height); 

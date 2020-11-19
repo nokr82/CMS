@@ -232,7 +232,8 @@
             <form method="post" name="sigPad" action="" onsubmit="return sign_success()" class="sigPad">
                 <div class="sig sigWrapper">
                     <div class="typed"></div>
-                    <canvas class="pad" id="canvas"></canvas>
+                    <!--<canvas class="pad" id="canvas"></canvas>-->
+                    <canvas width="672px"  height="127px" style="background: #fff" id="canvas"></canvas>
                     <input type="hidden" name="output" class="output">
                 </div>
                 <div class="clearButton"><a href="#clear">지우기</a></div>

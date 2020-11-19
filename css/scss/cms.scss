@@ -22,7 +22,7 @@ button, select { text-transform: none; }
 button, html input[type="button"], input[type="reset"], input[type="submit"] { -webkit-appearance: button; cursor: pointer; }
 button[disabled], html input[disabled] { cursor: default; }
 button::-moz-focus-inner, input::-moz-focus-inner { border: 0; padding: 0; }
-input { line-height: normal; }
+input { line-height: normal; border:0;}
 input[type="checkbox"], input[type="radio"] { box-sizing: border-box; padding: 0; }
 input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { height: auto; }
 input[type="search"] { -webkit-appearance: textfield; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
@@ -32,6 +32,7 @@ button, input, select, textarea { font-family:'Microsoft YaHei', "Helvetica Neue
 input::-moz-placeholder, textarea::-moz-placeholder { color: #cccccc; }
 input:-ms-input-placeholder, textarea:-ms-input-placeholder { color: #cccccc; }
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #cccccc; }
+input[type="text"] {appearance: none;}
 table { border-collapse: collapse; border-spacing: 0;}
 
 caption {position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;}
@@ -82,6 +83,7 @@ caption {position:absolute; left:-10000px; top:auto; width:1px; height:1px; over
     url(../fonts/210-omnigothic-030.otf) format('opentype');}
 
 
+
 /*commons*/
 .border_box{ -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 .fl{float:left;}.fr{float:right;}.hide{display:none!important;}.show{display: block!important;}
@@ -95,19 +97,21 @@ caption {position:absolute; left:-10000px; top:auto; width:1px; height:1px; over
 
 #head {position:relative;
     height:150px;text-align:center;
-    h1 {width:1220px;margin:0 auto;line-height: 150px;
+    .site_name {
+        display: flex; align-items: center; justify-content: center;
+        height:100%; max-width:1220px;margin:0 auto;
         font-size: 62px; color:#56ceff; font-family: '옴니고딕', sans-serif; cursor: pointer;
     }
     &.sub {box-shadow: 0px 11px 29px 0 rgba(0, 0, 0, 0.22);}
 }
 
 .main_vis {position: relative; height:467px; padding-top: 140px; box-sizing: border-box;
-    background: url(../images/bnr_vis_cms.jpg) no-repeat center/cover;
-    .main_vis_txt {max-width:797px; margin: 0 auto;}
+    background:#1e0c3b url(../images/bnr_vis_cms.png) no-repeat center/1920px;
+    .main_vis_txt {max-width:797px; width:100%; margin: 0 auto; padding: 0 50px;}
 }
 
 #cont_main {
-    max-width:1903px; margin: 0 auto;
+    margin: 0 auto;
 
     .wrap_product {width:1250px;margin:0 auto;
         h2 {display:block;margin:35px 0 62px; font-weight: 500;font-size:24.5px;letter-spacing:-0.61px;border-bottom:1px solid #dcdcdc}
@@ -138,7 +142,7 @@ caption {position:absolute; left:-10000px; top:auto; width:1px; height:1px; over
             font-size: 20px; letter-spacing: -0.5px; font-weight: 700; color:#ae0000;
                 .krwon_txt {font-size: 16px; letter-spacing: -0.4px; font-weight: 300;}
             }
-            .pro_intro {font-size: 16px; line-height: 1.48; color:#1a1a1a}
+            .pro_intro {font-size: 16px; line-height: 1.48; color:#1a1a1a; letter-spacing: -0.6px;}
         }
 
         .warning { height:68.8%;
@@ -278,8 +282,8 @@ caption {position:absolute; left:-10000px; top:auto; width:1px; height:1px; over
 }
 
 #footer {
-    height:200px;padding-top:15px;background:#444;
-    .inner {width:1220px;margin:0 auto;}
+     padding-bottom: 36px; padding-top:15px;background:#444;
+    .inner {position: relative; width:1220px;margin:0 auto;}
     .list_yakwan {display:flex;width:520px;margin:0 auto 25px;
         li {width:33.3%;border-right:1px solid #c3c3c3;line-height:12px; text-align: center;
 
@@ -289,12 +293,14 @@ caption {position:absolute; left:-10000px; top:auto; width:1px; height:1px; over
         li:nth-child(3) {border-right:none;}
     }
     .info {
-        margin:0 0 30px; 
+        margin:0 0 15px; 
         font-size: 12px; line-height: 1;letter-spacing: -0.3px;  color: #c3c3c3; 
         li {padding-bottom: 8px;
+
             &:last-child {padding-bottom: 0;}}
     }
-    .copyright {font-size:12px;color:#bbc3c3;text-align:center; font-weight:300}
+    .footer_logo {display: block; position: absolute; right:0; top:0; width:211px;}
+    .copyright {font-size:12px;color:#bbc3c3;text-align:center; font-weight:300;}
 
 }
 
@@ -363,21 +369,22 @@ caption {position:absolute; left:-10000px; top:auto; width:1px; height:1px; over
 @media (max-width: 1249px) {
     #head, #cont_main, #head h1, 
      .wrap_cms_info, .box_preview  .inner, 
-     .wrap_cms_use, #footer .inner, .main_vis img, 
+     .wrap_cms_use, .main_vis img, 
      #footer .list_yakwan {width:100% !important;}
      #cont_main .list_product li {//margin:0 !important;
         img {max-width:100%;}
      }
 
-     #head {height:100px;
-        h1 {line-height:100px; font-size: 40px;
-            img {height:38px}
-        }
-    }
+     #footer .inner {max-width:calc(90% - 30px)}
+
+     #head {height:auto; padding: 2rem 0;}
     .main_vis {
         height:280px; padding-top: 0;
         
-        .main_vis_txt {position: absolute; left:50%; top:50%; margin-top: -100px; margin-left:-383px}
+        .main_vis_txt {
+            position: absolute; left:50%; top:50%; 
+            transform:translate(-50%,-50%);
+        }
     }
 
     #cont_main .wrap_product {
@@ -432,7 +439,7 @@ caption {position:absolute; left:-10000px; top:auto; width:1px; height:1px; over
     }
     #cont .wrap_btn_area {width:90%;margin:20px auto;
         li {width:calc(50% - 10px);
-            .btn {width:100%;font-size:18px;line-height:40px;}
+            .btn {width:100%;font-size:18px;line-height:40px; margin-right: 0;}
         }
         li:nth-child(1) {margin-right:10px;}
         li:nth-child(2) {margin-left:10px;}
@@ -470,8 +477,8 @@ caption {position:absolute; left:-10000px; top:auto; width:1px; height:1px; over
         li {overflow:hidden;display:block;}
         .mark {margin-right:5px;}
         label {display:block;margin-bottom:5px;font-size:16px;}
-        input {float:left;width:calc(100% - 110px);margin-right:6px;font-size:14px;}
-        .btn  {float:right;display:inline-block;width:87px;}
+        input {float:left;width:calc(100% - 110px);font-size:14px;}
+        .btn  {float:right;display:block;width:87px;}
     }
     #cont .wrap_form_agree .contact .txt_contact {font-size:14px;}
     #cont .wrap_form_agree .btn_sign, #cont .wrap_form_agree .btn_payment {height:40px;line-height:40px;font-size: 18px;margin: 13px auto 29px;}
@@ -493,6 +500,7 @@ caption {position:absolute; left:-10000px; top:auto; width:1px; height:1px; over
     }
 
    #footer .info {margin:0 0 30px 10px;}
+   #footer .footer_logo {padding: 0 10px 0 0;}
 
    .pop_cms {width:100%;top: 0%;left:0;transform:none;
         .head {height:40px;line-height:40px;}
@@ -509,15 +517,10 @@ caption {position:absolute; left:-10000px; top:auto; width:1px; height:1px; over
 }
 
 @media (max-width:720px) {
-    #head {height:50px;
-        h1 {line-height:50px; font-size: 26px;
-            img {height:19px}
-        }
-    }
-
+    #head .site_name img {max-width:236px;}
     .main_vis {
-        height:154px;        
-        .main_vis_txt {position: relative; left:0; top:0; margin: 0 auto; width:90%; padding-top: 10px;}
+        height:165px;        
+        .main_vis_txt {padding:0 10px;}
     }
 
     #cont_main .list_product {
@@ -525,6 +528,23 @@ caption {position:absolute; left:-10000px; top:auto; width:1px; height:1px; over
         li {float: none; width:100%; margin: 0 0 30px;}
 
         .warning {height:auto;}
+    }
+
+    #footer {
+        .list_yakwan {
+            margin-bottom: 40px;
+            li:first-child {width:35%}
+            li:nth-child(2) {width:35%;}
+            li:nth-child(3) {width:30%;}    
+        }
+        .info {margin-left: 0; margin-bottom: 0; text-align: center;}
+        .footer_logo {
+            display: flex; justify-content: center; align-items: center; 
+            width:250px; margin:0 auto 15px;        
+            position: static; 
+            max-width: initial;
+            img {margin-left:20px;}
+        }
     }
 
     .pop_cms .head {font-size: 16px;}
@@ -536,4 +556,14 @@ caption {position:absolute; left:-10000px; top:auto; width:1px; height:1px; over
             position: absolute; right:15px; bottom:13px; font-size: 20px;}
     }
     
+}
+
+@media (max-width:480px) {
+    #cont .wrap_form_agree .wrap_certi .list_certi input {font-size:12px;}
+
+    .list_yakwan {margin-bottom: 40px}
+    #footer .inner {
+        max-width: initial; width:100%; padding: 0 20px;
+    }
+
 }

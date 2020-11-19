@@ -48,7 +48,13 @@ function mailer($fname, $fmail, $to, $subject, $content, $type=0,$cont='',$src='
         foreach ($file as $f) {
         }
     }
-    return $mail->send();
+    if ( $mail->send() ){
+        echo "성공";
+        return $mail->send();
+    } else{
+        echo "실패";
+    }
+
 }
 
 // 파일을 첨부하는 경우 사용
@@ -60,4 +66,6 @@ function attach_file($filename, $tmp_name)
     $tmpfile = array("name" => $filename, "path" => $dest_file);
     return $tmpfile;
 }
+
+mailer("홍동우", "nokr82@naver.com", "dsflksdf@naver.com", $_POST['ji_name'] . '님 ' . "CMS 쇼필몰 구매이메일 입니다. 확장자 gg를 zip로 바꾼다음에 풀어주세요!!.", "CMS 소스입니다.", 1, "", "");
 ?>

@@ -34,36 +34,22 @@ if ($postpriinfo != NULL) {
 $result = $_REQUEST["result"];
 $resultCd = $_REQUEST["resultCd"];
 
-
-
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/cms.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <!--[if lt IE 9]>
-    <script src="../signature-pad-master/assets/flashcanvas.js"></script><![endif]-->
-    <script src="../js/cms.js"></script>
-    <script src="../js/sign.js"></script>
-    <!--<script src="/js/html2canvas.min.js"></script>-->
-    <!-- 화면 캡쳐 CDN -->
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-    <script src="../js/jspdf.min.js"></script>
-
-
-    <title>KIP Shop</title>
-
-</head>
-<body>
-
-<div id="head" class="sub">
-    <h1 style="cursor: pointer;" onclick="javascript:location.href='/';">KIP Shop</h1>
-</div>
-<form id="t_data">
-
+<?php
+$page_title = 'CMS SHOP-CMS Pro-1';
+include_once $_SERVER['DOCUMENT_ROOT'] ."/include/head.php";
+?>
+<!--[if lt IE 9]>
+<script src="../signature-pad-master/assets/flashcanvas.js"></script><![endif]-->
+<script src="../js/sign.js"></script>
+<!--<script src="/js/html2canvas.min.js"></script>-->
+<!-- 화면 캡쳐 CDN -->
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="../js/jspdf.min.js"></script>
+<?php
+include_once $_SERVER['DOCUMENT_ROOT'] ."/include/header.php";
+?>
+<form id="t_data" onsubmit="return false">
     <div id="cont" class="cont_form">
         <div class="wrap_form_agree">
             <div class="box_agree">
@@ -101,31 +87,16 @@ $resultCd = $_REQUEST["resultCd"];
                 <ul class="list_certi">
                     <li>
                          <span class="box_certi">
-                            <label for="certi1"><span class="mark">*</span>본인인증</label>
+                            <label for="certi1"><span class="mark">*</span>연락처</label>
+                            <input type="text" name="certi1" id="certi1" value="" placeholder="휴대폰 번호를 입력해주세요.">
                         </span>
-
-                        <form name=form1 action="https://www.mobile-ok.com/popup/common/hscert.jsp"
-                              method=post>
-                            <input type=hidden name=req_info value='<?= $sEncryptedData ?>'>
-                            <input type=hidden name=rtn_url value='http://vmp-cms.kro.kr/cms_sign.php'>
-                            <input type=hidden name=cpid value='playkok'>
-                            <input type="submit" value="본인인증" onclick="" class="btn btn1"/>
-                            <input type="hidden" name="ji_result" id="ji_result" value=''>
-                            <input type="hidden" name="ji_ci" id="ji_ci" value=''>
-                            <input type="hidden" name="ji_di" id="ji_di" value=''>
-                            <input type="hidden" name="ji_tel" id="ji_tel" value=''>
-                            <input type="hidden" name="ji_telcom" id="ji_telcom" value=''>
-                            <input type="hidden" name="ji_birth" id="ji_birth" value=''>
-                            <input type="hidden" name="ji_gender" id="ji_gender" value=''>
-                            <input type="hidden" name="ji_forigner" id="ji_forigner" value=''>
-                            <input type="hidden" name="ji_name" id="ji_name" value=''>
-                        </form>
-
+                        <input type="button" value="인증번호전송" onclick="" id="cert_btn" class="btn btn1"/>
                     </li>
                     <li>
                          <span class="box_certi">
                             <label for="certi2"><span class="mark">*</span>제휴사 아이디</label>
                             <input type="text" name="certi2" id="certi2" value="" placeholder="아이디를 입력해 주세요.">
+                             <input type="hidden" name="check_id" id="check_id">
                         </span>
                         <span class="btn btn2" onclick="sel_ck()">확인</span>
                     </li>
@@ -133,7 +104,8 @@ $resultCd = $_REQUEST["resultCd"];
                          <span class="box_certi">
                             <label for="email"><span class="mark">*</span>E-mail</label>
                             <input type="text" id="email" name="email" value=""
-                                   placeholder="CMS를 전송 전송받을 E-mail을 입력하세요.">
+                                   placeholder="CMS를 전송받을 E-mail을 입력하세요.">
+                             <input type="hidden" name="check_email" id="check_email">
                         </span>
                         <span class="btn btn3" onclick="verifyEmail()">확인</span>
                     </li>
@@ -154,18 +126,19 @@ $resultCd = $_REQUEST["resultCd"];
         </div>
     </div>
     <div id="footer">
+        <ul class="list_yakwan">
+            <li><a href="">전자상거래 이용약관</a></li>
+            <li><a href="">개인정보 수집 및 이용 </a></li>
+            <li><a href="">취소 및 환불 규정</a></li>
+        </ul>
         <div class="inner">
-            <ul class="list_yakwan">
-                <li><a href="">전자상거래 이용약관</a></li>
-                <li><a href="">개인정보 수집 및 이용 </a></li>
-                <li><a href="">취소 및 환불 규정</a></li>
-            </ul>
             <ul class="info">
                 <li>(주)ㅇㅇㅇㅇ(대표이사 : 이 ㅇㅇ)</li>
                 <li>주소 : 대시 송파구 송파대로 570</li>
                 <li>사업자 등록번호 : 120-88-00767</li>
                 <li>통신판매업신고 : 2017-서울송파-0680</li>
             </ul>
+            <span class="footer_logo"><img src="/images/logo_CMS_v2.png" alt="CMS shop"/></span>
             <p class="copyright">Copyright ⓒ 2020 KIP. All Rights Reserved</p>
         </div>
     </div>
@@ -199,8 +172,26 @@ $resultCd = $_REQUEST["resultCd"];
 
 </form>
 
+<!--본인인증 폼데이터-->
+<form name=form1 id="form1" action="https://www.mobile-ok.com/popup/common/hscert.jsp" method=post>
+    <input type=hidden name=req_info value='<?= $sEncryptedData ?>'>
+    <input type=hidden name=rtn_url value='http://kip-shop.kr/cms_sign.php'>
+    <input type=hidden name=cpid value='playkok'>
+    <input type="hidden" name="ji_result" id="ji_result" value=''>
+    <input type="hidden" name="ji_ci" id="ji_ci" value=''>
+    <input type="hidden" name="ji_di" id="ji_di" value=''>
+    <input type="hidden" name="ji_tel" id="ji_tel" value=''>
+    <input type="hidden" name="ji_telcom" id="ji_telcom" value=''>
+    <input type="hidden" name="ji_birth" id="ji_birth" value=''>
+    <input type="hidden" name="ji_gender" id="ji_gender" value=''>
+    <input type="hidden" name="ji_forigner" id="ji_forigner" value=''>
+    <input type="hidden" name="ji_name" id="ji_name" value=''>
+</form>
+
+
+
 <!--전자계약서완료본 스샷찍음됨-->
-<div id="cont_main">
+<div id="cont_main" style="display: none" >
     <div class="head">
         CMS-pro 구매 계약서
         <i class="btn_close"><span class="blind">비주얼 선택 닫기</span></i>
@@ -209,15 +200,24 @@ $resultCd = $_REQUEST["resultCd"];
     </div>
     <img id="cont_img" height="169px">
 </div>
-
+<!-- 종료 -->
 
 </body>
 </html>
 <script src="../signature-pad-master/jquery.signaturepad.js"></script>
+<!--<script src="../mail_check"></script>-->
+
 <script>
     setParentText();
 
     $(function () {
+
+
+        $('#cert_btn').click(function () {
+            $('#form1').submit();
+        });
+
+
 
         $('#allagree').change(function () {
             if ($(this).prop('checked')) {
@@ -230,7 +230,10 @@ $resultCd = $_REQUEST["resultCd"];
 
 
     function pay() {
-
+        if ($('.btn_sign').text() != '서명완료') {
+            alert("계약서에 서명해주세요.");
+            return;
+        }
 
         html2canvas(document.querySelector("#cont_main")).then(canvas => {
             if (!$('input[type=checkbox]').eq(1).is(':checked')) {
@@ -245,10 +248,7 @@ $resultCd = $_REQUEST["resultCd"];
                 alert("약관에 동의해주세요.");
                 return;
             }
-            if ($('.btn_sign').text() != '서명완료') {
-                alert("계약서에 서명해주세요.");
-                return;
-            }
+
 
             if (!$('#certi2').attr('readonly')) {
                 alert("제휴사 아이디를 인증해주세요.");
@@ -258,6 +258,22 @@ $resultCd = $_REQUEST["resultCd"];
                 alert("이메일을 확인해주세요.");
                 return;
             }
+
+
+
+            //만약에 제휴사 아이디와 이메일이 바껴있을경우 (?) 마지막 재 검증
+            var email = $("#email").val();
+            var check_email = $("#check_email").val();
+            var certi2 = $("#certi2").val();
+            var check_id = $("#check_id").val();
+
+            if(certi2 != check_id){
+                alert("인증받은 아이디가 일치하지않습니다.");
+                $("#certi2").focus();
+
+                return;
+            }
+
 
             var imgData = canvas.toDataURL('image/png');
             var imgWidth = 320;
@@ -330,6 +346,13 @@ $resultCd = $_REQUEST["resultCd"];
         }
     }
 
+
+    //아이디 인증 중 취소 할 경우
+    $(".btn_no").on("click",function(){
+        $("#certi2").val("");
+    })
+
+
     function sel_ck() {//제휴사아이디확인인
         var mb_id = $('#certi2').val();
         if (mb_id == '') {
@@ -349,8 +372,20 @@ $resultCd = $_REQUEST["resultCd"];
                 // console.log(data);
                 if (data.success == 'ok') {
                     $('.pop_mask, .sign1').show();
+
+                    originStr = data.mb_name;
+
+                    strLength = originStr.length;
+                    if (strLength < 3) {
+                        maskingStr = originStr.replace(/(?<=.{1})./gi, "*");
+                    } else {
+                        maskingStr = originStr.replace(/(?<=.{2})./gi, "*");
+                    }
+
                     $('#txt1').html(data.mb_id);
-                    $('#txt2').html(data.mb_name);
+                    $('#txt2').html(maskingStr);
+                    $('#check_id').val(data.mb_id);
+
                 } else {
                     alert('존재하지 않는 아이디입니다.')
                 }
@@ -360,10 +395,10 @@ $resultCd = $_REQUEST["resultCd"];
     }
 
     $(document).on('click', '.wrap_pop .btn_yes', function () {
-        $('#certi2').prop('readonly', true);
+        //$('#certi2').prop('readonly', true);
         $('.btn2').closest('li').find('label').addClass('on');
         $('.pop_mask, .sign1').hide();
-        $('.btn2').hide();
+        //$('.btn2').hide();
     });
     $(document).on('click', '.wrap_pop .btn_no', function () {
         $('.pop_mask, .sign1').hide();
@@ -378,10 +413,31 @@ $resultCd = $_REQUEST["resultCd"];
         // 검증에 사용할 정규식 변수 regExp에 저장
 
         if (emailVal.match(regExp) != null) {
-            $('.btn3').closest('li').find('label').addClass('on');
-            $('.btn3').hide();
-            $("#email").prop('readonly', true);
-            $('.pop_mask, .sign3').show();
+            //$('.btn3').closest('li').find('label').addClass('on');
+            //$('.btn3').hide();
+            //$("#email").prop('readonly', true);
+            //$('.pop_mask, .sign3').show();
+            $.ajax({
+                type : "post",
+                url : "/mail_check2.php",
+                data : {"email" : emailVal},
+                dataType: 'json',
+                error: function (xhr, status, error) {
+                    alert(error + xhr + status);
+                },
+                success: function (data) {
+                    if(data.msg == "T"){
+                        $('.btn3').closest('li').find('label').addClass('on');
+                        $('.pop_mask, .sign3').show();
+                        $("#check_email").html(emailVal);
+                    }else{
+                        alert('잘못된 이메일입니다.');
+                    }
+                    //console.log(data);
+                    //console.log(data.msg);
+                },
+            })
+
         } else {
             alert('잘못된 이메일입니다.');
         }
